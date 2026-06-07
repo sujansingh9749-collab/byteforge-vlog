@@ -1,0 +1,24 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { title, description, pubDate, author, youtubeId } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <article class="max-w-2xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 leading-tight">{title}</h1>
+      <div class="text-sm text-slate-500">
+        <span>{new Date(pubDate).toDateString()}</span> • <span>by {author}</span>
+      </div>
+    </header>
+
+    {youtubeId && (
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-[0_0_30px_rgba(37,99,235,0.15)] border border-slate-800">
+        <iframe class="absolute top-0 left-0 w-full h-full border-0" src={`https://www.youtube.com/embed/${youtubeId}`} allowfullscreen></iframe>
+      </div>
+    )}
+
+    <div class="prose prose-invert max-w-none text-slate-300 leading-relaxed">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

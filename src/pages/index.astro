@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<BaseLayout title="ByteForge - Home">
+  <div class="text-center py-16">
+    <h1 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
+      Smart Tutorials & <br/>
+      <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">AI Tools</span>
+    </h1>
+    <p class="text-slate-400 max-w-md mx-auto text-sm md:text-base">মোবাইল কোডিং, টার্মাক্স অটোমেশন এবং ডেভেলপমেন্টের সম্পূর্ণ গাইড</p>
+  </div>
+
+  <div class="mt-4">
+    <h2 class="text-lg font-bold text-slate-400 mb-6 uppercase tracking-wider text-center">সাম্প্রতিক পোস্টসমূহ</h2>
+    
+    <div class="grid md:grid-cols-2 gap-6">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}`} class="block rounded-2xl bg-slate-950/40 border border-slate-900 hover:border-blue-500/40 transition shadow-md group overflow-hidden">
+          {post.data.coverImage && (
+            <img 
+              src={post.data.coverImage} 
+              alt={post.data.title} 
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          )}
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition mb-2">
+              {post.data.title}
+            </h3>
+            <p class="text-slate-400 text-sm line-clamp-2">{post.data.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
