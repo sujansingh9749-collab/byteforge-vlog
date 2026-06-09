@@ -1,0 +1,180 @@
+---
+// src/pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "আমাদের সম্পর্কে";
+const description = "ByteForge Vlog - প্রযুক্তি, প্রোগ্রামিং এবং ডিজিটাল জগতের বাংলা ব্লগ।";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="about-page">
+    <h1>ByteForge Vlog সম্পর্কে</h1>
+
+    <div class="about-hero">
+      <p class="tagline">প্রযুক্তির জগতে আপনার বিশ্বস্ত বাংলা গাইড 🚀</p>
+    </div>
+
+    <section>
+      <h2>আমরা কারা?</h2>
+      <p>
+        ByteForge Vlog একটি বাংলা প্রযুক্তি ব্লগ যেখানে আমরা
+        Programming, Web Development, Tech Tips এবং ডিজিটাল দুনিয়ার
+        বিভিন্ন বিষয় নিয়ে সহজ বাংলায় আলোচনা করি।
+      </p>
+    </section>
+
+    <section>
+      <h2>আমাদের লক্ষ্য</h2>
+      <p>
+        বাংলাভাষী মানুষদের কাছে প্রযুক্তিকে সহজলভ্য করে তোলা আমাদের মূল লক্ষ্য।
+        আমরা বিশ্বাস করি, মাতৃভাষায় শেখা সবচেয়ে কার্যকর।
+      </p>
+      <ul>
+        <li>✅ সহজ বাংলায় প্রযুক্তির টিউটোরিয়াল</li>
+        <li>✅ প্রোগ্রামিং শেখার গাইড</li>
+        <li>✅ Web Development টিপস</li>
+        <li>✅ সর্বশেষ টেক নিউজ ও রিভিউ</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>আমাদের বিষয়বস্তু</h2>
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="icon">💻</span>
+          <h3>Programming</h3>
+          <p>Python, JavaScript, C++ সহ বিভিন্ন ভাষার টিউটোরিয়াল</p>
+        </div>
+        <div class="topic-card">
+          <span class="icon">🌐</span>
+          <h3>Web Development</h3>
+          <p>HTML, CSS, React, Next.js সহ Web Dev গাইড</p>
+        </div>
+        <div class="topic-card">
+          <span class="icon">🔧</span>
+          <h3>Tech Tips</h3>
+          <p>দৈনন্দিন জীবনে কাজের প্রযুক্তি টিপস</p>
+        </div>
+        <div class="topic-card">
+          <span class="icon">📱</span>
+          <h3>Gadget Review</h3>
+          <p>সর্বশেষ প্রযুক্তি পণ্যের রিভিউ</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>যোগাযোগ করুন</h2>
+      <p>
+        আপনার কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের
+        <a href="/contact">Contact পেজে</a> যোগাযোগ করুন।
+      </p>
+    </section>
+
+    <section>
+      <h2>Disclosure</h2>
+      <p>
+        ByteForge Vlog Google AdSense-এর মাধ্যমে বিজ্ঞাপন প্রদর্শন করে।
+        এই বিজ্ঞাপনগুলো আমাদের সাইট পরিচালনার ব্যয় মেটাতে সাহায্য করে।
+        আমাদের বিষয়বস্তু সম্পূর্ণ নিরপেক্ষ এবং বিজ্ঞাপনদাতাদের দ্বারা প্রভাবিত নয়।
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .about-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+  }
+
+  .about-hero {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  section {
+    margin: 2.5rem 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #00d4ff;
+  }
+
+  p, li {
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+  }
+
+  ul {
+    padding-left: 0.5rem;
+    list-style: none;
+  }
+
+  ul li {
+    padding: 0.3rem 0;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .topic-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid #eee;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .topic-card h3 {
+    font-size: 1rem;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+  }
+
+  .topic-card p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  a {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+</style>

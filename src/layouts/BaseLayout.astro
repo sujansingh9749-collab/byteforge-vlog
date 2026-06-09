@@ -1,32 +1,254 @@
 ---
-// Tailwind CSS এর নতুন v4 গ্লোবাল স্টাইল ইমপোর্ট করা হলো
-import '../styles/global.css';
+// src/layouts/BaseLayout.astro
+// AdSense-ready Base Layout
 
-const { title, description = "ByteForge - AI & Automation Vlog" } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title,
+  description,
+  image = "/og-image.png",
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+
+const ADSENSE_ID = "ca-pub-XXXXXXXXXXXXXXXXX"; // তোমার AdSense Publisher ID দিন
 ---
+
 <!DOCTYPE html>
-<html lang="bn" class="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <meta name="description" content={description}>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-</head>
-<body class="bg-[#0B0F19] text-slate-200 min-h-screen font-sans">
-  <header class="border-b border-slate-800/80 sticky top-0 bg-[#0B0F19]/80 backdrop-blur-md z-50">
-    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="/" class="text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-        ByteForge<span class="text-blue-500">.</span>
-      </a>
-      <nav class="flex items-center gap-6 text-sm font-medium text-slate-400">
-        <a href="/" class="hover:text-slate-100 transition">Home</a>
-        <a href="/blog" class="hover:text-slate-100 transition">Blog</a>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- ✅ Primary Meta Tags (AdSense এর জন্য জরুরি) -->
+    <title>{title} | ByteForge Vlog</title>
+    <meta name="title" content={`${title} | ByteForge Vlog`} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- ✅ Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | ByteForge Vlog`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:locale" content="bn_BD" />
+    <meta property="og:site_name" content="ByteForge Vlog" />
+
+    <!-- ✅ Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={`${title} | ByteForge Vlog`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.url)} />
+
+    <!-- ✅ Google AdSense Auto Ads -->
+    <!-- নিচের লাইনে তোমার Publisher ID বসাও -->
+    <script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`}
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ✅ Sitemap & Feed -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- ✅ Structured Data (Schema.org - AdSense approval এ সাহায্য করে) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ByteForge Vlog",
+        "url": "https://yourdomain.com",
+        "description": "Technology, Programming, and Digital Tips in Bengali"
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ✅ Header -->
+    <header class="site-header">
+      <nav class="navbar">
+        <a href="/" class="logo">ByteForge Vlog</a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
       </nav>
-    </div>
-  </header>
-  <main class="max-w-4xl mx-auto px-4 py-10">
-    <slot />
-  </main>
-</body>
+    </header>
+
+    <!-- ✅ Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- ✅ Footer -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>&copy; {new Date().getFullYear()} ByteForge Vlog. All rights reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Use</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        <p class="disclaimer">
+          এই সাইটে Google AdSense বিজ্ঞাপন প্রদর্শিত হয়।
+          বিজ্ঞাপনগুলো Google কর্তৃক পরিচালিত।
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
+
+<style is:global>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #222;
+    background: #fff;
+  }
+
+  /* ===== NAVBAR ===== */
+  .site-header {
+    background: #1a1a2e;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00d4ff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: #00d4ff;
+  }
+
+  /* ===== MAIN ===== */
+  main {
+    min-height: 60vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    background: #1a1a2e;
+    color: #aaa;
+    padding: 2rem 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+
+  .footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #00d4ff;
+  }
+
+  .disclaimer {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+  }
+
+  /* ===== AD CONTAINERS ===== */
+  .ad-container {
+    margin: 2rem auto;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ad-label {
+    font-size: 0.7rem;
+    color: #999;
+    text-align: center;
+    display: block;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav-links {
+      gap: 1rem;
+    }
+  }
+</style>
